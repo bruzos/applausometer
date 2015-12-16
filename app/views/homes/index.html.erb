@@ -1,15 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Homes</h1>
-
-<%= alert_box context: :warning, dismissible: true, id: 'alert', class: :en, data: {js: 1} do %>
-    <em>Thanks!</em> You accepted the <%= link_to 'Terms of service', '/#terms' %>.
-<% end %>
-
-<div id="message">Click mic to toggle listening</div>
-
 <div id="meter" class="icon-microphone"><span></span></div>
 <div id="db-level"></div>
+<div class="first-layer"></div>
+<div class="container">
+    <div class="move-element"></div>
+</div>
 <script>
 
     // HTML elements
@@ -58,8 +52,16 @@
     var level = document.getElementById('db-level');
 
     meter.on('sample', function (dB, percent, value) {
-        level.innerHTML = dB + ' dB'; // display current dB level
-        console.log('level db:' + dB);
+        var realPercent = Math.round(percent * 100);
+        level.innerHTML = realPercent + ' %'; // display current dB level
+        //console.log('level db:' + dB);
+
+        
+        console.log('percent value:' + realPercent);
+
+        $('.move-element').css('transform', 'translateX('+realPercent+'%)');
+        //$('.move-element').css('transform', 'translateY(-50px)');
+
     });
 
 </script>

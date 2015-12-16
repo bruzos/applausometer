@@ -207,9 +207,9 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
     DecibelMeter.prototype.startLoop = function () {
 
         var meter = this;
+        var oldPercent = 0;
 
         function update() {
-
             if (meter.listening && meter.handle.sample) {
 
                 meter.connection.analyser.getByteFrequencyData(meter.connection.lastSample);
@@ -218,12 +218,14 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                     percent = value / 255,
                     dB = meter.connection.analyser.minDecibels + ((meter.connection.analyser.maxDecibels - meter.connection.analyser.minDecibels) * percent);
 
-                if(value > 90){
+                if(value > 30){
                     dispatch(meter, 'sample', [dB, percent, value]);
+                    oldPercent = percent;
                 }
             }
-
-            requestAnimationFrame(update);
+            setTimeout(function(){
+                requestAnimationFrame(update);
+            }, 50);
         }
 
         update();
