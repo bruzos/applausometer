@@ -58,10 +58,8 @@
     var level = document.getElementById('db-level');
 
     meter.on('sample', function (dB, percent, value) {
-        setInterval(function(){
-            level.innerHTML = dB + ' dB'; // display current dB level
-        }, 5000);
-
+        level.innerHTML = dB + ' dB'; // display current dB level
+        console.log('level db:' + dB);
     });
 
 </script>

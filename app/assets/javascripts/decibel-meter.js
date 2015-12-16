@@ -218,7 +218,9 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                     percent = value / 255,
                     dB = meter.connection.analyser.minDecibels + ((meter.connection.analyser.maxDecibels - meter.connection.analyser.minDecibels) * percent);
 
-                dispatch(meter, 'sample', [dB, percent, value]);
+                if(value > 90){
+                    dispatch(meter, 'sample', [dB, percent, value]);
+                }
             }
 
             requestAnimationFrame(update);
