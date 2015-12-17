@@ -53,12 +53,22 @@
         $('.move-element').css('transform', 'translateX('+realPercent+'%)');
         //$('.move-element').css('transform', 'translateY(-50px)');
 
-        //if (realPercent>50){
-        setTimeout(function(){
-             meter.stopListening();
+
+        function timeStop(){
+            meter.stopListening();
             $('.confeti').fadeIn();
             $('.confetiContent').text(maxPercent);
+        }
+        
+
+        var timerLimit = setTimeout(function(){
+           timeStop();
         }, 10000);
+
+        if (realPercent>100){
+            clearTimeout(timerLimit);
+            timeStop();
+        }
 
     });
 
