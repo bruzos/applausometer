@@ -110,6 +110,24 @@ body {
   bottom: 0;
 }
 
+#db-level, .maxLevel{
+  position: absolute;
+  right: 10%;
+  font-size: 130px;
+  font-weight: bold;
+  color: white;
+  font-family: 'McLaren', cursive;
+}
+
+#db-level{
+  top: 10%;
+}
+
+.maxLevel{
+  top: 30%;
+  color: red;
+}
+
 body{
   background: image-url('segundo_plano.png');
   background-size: cover;

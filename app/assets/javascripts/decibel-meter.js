@@ -98,7 +98,7 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
         navigator.getUserMedia(constraints, success, error);
     }
 
-    function dispatch(meter, eventName, params) {
+    function dispatch(meter, eventName, params, max) {
         var h = meter.handle[eventName],
             n = h.length;
 
@@ -207,7 +207,7 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
     DecibelMeter.prototype.startLoop = function () {
 
         var meter = this;
-        var oldPercent = 0;
+        var maxPercent = 0;
 
         function update() {
             if (meter.listening && meter.handle.sample) {
@@ -219,8 +219,12 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                     dB = meter.connection.analyser.minDecibels + ((meter.connection.analyser.maxDecibels - meter.connection.analyser.minDecibels) * percent);
 
                 if(value > 30){
-                    dispatch(meter, 'sample', [dB, percent, value]);
-                    oldPercent = percent;
+                    if (percent>maxPercent)
+                        maxPercent = percent;
+
+                    dispatch(meter, 'sample', [dB, percent, value, maxPercent]);
+
+                    
                 }
             }
             setTimeout(function(){

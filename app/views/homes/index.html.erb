@@ -1,5 +1,7 @@
+<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
 <div id="meter" class="icon-microphone"><span></span></div>
 <div id="db-level"></div>
+<div class="maxLevel"></div>
 <div class="first-layer"></div>
 <div class="container">
     <div class="move-element"></div>
@@ -51,13 +53,14 @@
 
     var level = document.getElementById('db-level');
 
-    meter.on('sample', function (dB, percent, value) {
+    meter.on('sample', function (dB, percent, value, max) {
         var realPercent = Math.round(percent * 100);
-        level.innerHTML = realPercent + ' %'; // display current dB level
+        var maxPercent = Math.round(max * 100);
+
+        level.innerHTML = realPercent + ''; // display current dB level
         //console.log('level db:' + dB);
 
-        
-        console.log('percent value:' + realPercent);
+        $('.maxLevel').text(maxPercent)
 
         $('.move-element').css('transform', 'translateX('+realPercent+'%)');
         //$('.move-element').css('transform', 'translateY(-50px)');
