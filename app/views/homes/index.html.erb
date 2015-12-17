@@ -4,7 +4,7 @@
 <div class="maxLevel"></div>
 <div class="first-layer"></div>
 <div class="container">
-    <div class="move-element"></div>
+    <div class="move-element slideRight" ></div>
 </div>
 <script>
 
@@ -15,6 +15,8 @@
     // Decibel Meter
 
     var meter = DecibelMeter.create('meter');
+    var level = document.getElementById('db-level');
+
 
     // listen for audio sources to be ready
 
@@ -27,6 +29,23 @@
 
     meter.on('sample', function (dB, percent, level) {
         levelEl.style.height = (percent * 100) + '%';
+    });
+
+
+
+    // display sample levels
+    meter.on('sample', function (dB, percent, value, max) {
+        var realPercent = Math.round(percent * 100);
+        var maxPercent = Math.round(max * 100);
+
+        level.innerHTML = realPercent + ''; // display current dB level
+        //console.log('level db:' + dB);
+
+        $('.maxLevel').text(maxPercent)
+
+        $('.move-element').css('transform', 'translateX('+realPercent+'%)');
+        //$('.move-element').css('transform', 'translateY(-50px)');
+
     });
 
     // change element class when meter starts listening
@@ -51,21 +70,7 @@
             meter.listen();
     });
 
-    var level = document.getElementById('db-level');
 
-    meter.on('sample', function (dB, percent, value, max) {
-        var realPercent = Math.round(percent * 100);
-        var maxPercent = Math.round(max * 100);
-
-        level.innerHTML = realPercent + ''; // display current dB level
-        //console.log('level db:' + dB);
-
-        $('.maxLevel').text(maxPercent)
-
-        $('.move-element').css('transform', 'translateX('+realPercent+'%)');
-        //$('.move-element').css('transform', 'translateY(-50px)');
-
-    });
 
 </script>
 

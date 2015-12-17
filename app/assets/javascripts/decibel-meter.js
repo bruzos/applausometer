@@ -74,8 +74,9 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
             connection.context = new AudioContext();
             connection.source = connection.context.createMediaStreamSource(stream);
             connection.analyser = connection.context.createAnalyser();
-            connection.analyser.smoothingTimeConstant = .5;
-            connection.analyser.frequencyBinCount = 16;
+            connection.analyser.smoothingTimeConstant = .2;
+            connection.analyser.frequencyBinCount = 2;
+            connection.analyser.minDecibels = -100;
             connection.lastSample = new Uint8Array(1);
 
             meter.connection = connection;
@@ -215,17 +216,13 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                 meter.connection.analyser.getByteFrequencyData(meter.connection.lastSample);
 
                 var value = meter.connection.lastSample[0],
-                    percent = value / 255,
+                    percent = value / 150,
                     dB = meter.connection.analyser.minDecibels + ((meter.connection.analyser.maxDecibels - meter.connection.analyser.minDecibels) * percent);
 
-                if(value > 30){
-                    if (percent>maxPercent)
-                        maxPercent = percent;
+                if (percent>maxPercent)
+                    maxPercent = percent;
 
-                    dispatch(meter, 'sample', [dB, percent, value, maxPercent]);
-
-                    
-                }
+                dispatch(meter, 'sample', [dB, percent, value, maxPercent]);
             }
             setTimeout(function(){
                 requestAnimationFrame(update);
