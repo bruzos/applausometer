@@ -216,7 +216,7 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                 meter.connection.analyser.getByteFrequencyData(meter.connection.lastSample);
 
                 var value = meter.connection.lastSample[0],
-                    percent = value / 150,
+                    percent = value / 250,
                     dB = meter.connection.analyser.minDecibels + ((meter.connection.analyser.maxDecibels - meter.connection.analyser.minDecibels) * percent);
 
                 if (percent>maxPercent)
@@ -228,7 +228,6 @@ var DecibelMeter = ( function ( window, navigator, document, undefined ) {
                 requestAnimationFrame(update);
             }, 50);
         }
-
         update();
     };
 

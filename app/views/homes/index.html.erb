@@ -53,13 +53,12 @@
         $('.move-element').css('transform', 'translateX('+realPercent+'%)');
         //$('.move-element').css('transform', 'translateY(-50px)');
 
-        if (realPercent>70){
-            
-            meter.stopListening();
+        //if (realPercent>50){
+        setTimeout(function(){
+             meter.stopListening();
             $('.confeti').fadeIn();
             $('.confetiContent').text(maxPercent);
-
-        }
+        }, 10000);
 
     });
 
@@ -82,7 +81,7 @@
         if (meter.listening)
             meter.stopListening();
         else{
-            meter.listen();
+           
             $('#start').fadeOut();
             setTimeout(function(){
                 $('.rotulo').addClass('tossing');
@@ -92,6 +91,7 @@
 
             setTimeout(function(){
                 $('#db-level').fadeIn();
+                meter.listen();
             }, 2000);
         }
     });
