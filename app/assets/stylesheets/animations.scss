@@ -818,8 +818,8 @@ tossing
   animation-name: tossing;
   -webkit-animation-name: tossing;
 
-  animation-duration: 2.5s;
-  -webkit-animation-duration: 2.5s;
+  animation-duration: 4s;
+  -webkit-animation-duration: 4s;
 
   animation-iteration-count: infinite;
   -webkit-animation-iteration-count: infinite;
@@ -827,13 +827,16 @@ tossing
 
 @keyframes tossing {
   0% {
+    transform: rotate(0deg);
+  }
+  33% {
     transform: rotate(-4deg);
   }
-  50% {
+  66% {
     transform: rotate(4deg);
   }
   100% {
-    transform: rotate(-4deg);
+    transform: rotate(0deg);
   }
 }
 

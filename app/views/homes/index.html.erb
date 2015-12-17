@@ -1,7 +1,10 @@
 <link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
 <div id="meter" class="icon-microphone"><span></span></div>
 <div id="db-level"></div>
-<div class="maxLevel"></div>
+<div id="start"></div>
+<div class="rotulo"></div>
+<div class="confeti"><span class="confetiContent"></span></div>
+<div class="maxruido"></div>
 <div class="first-layer"></div>
 <div class="container">
     <div class="move-element slideRight" ></div>
@@ -10,7 +13,11 @@
 
     // HTML elements
     var meterEl = document.getElementById('meter'),
-            levelEl = document.querySelector('#meter > span');
+        levelEl = document.querySelector('#meter > span');
+
+    meterEl = document.getElementById('start');
+
+
 
     // Decibel Meter
 
@@ -46,6 +53,14 @@
         $('.move-element').css('transform', 'translateX('+realPercent+'%)');
         //$('.move-element').css('transform', 'translateY(-50px)');
 
+        if (realPercent>70){
+            
+            meter.stopListening();
+            $('.confeti').fadeIn();
+            $('.confetiContent').text(maxPercent);
+
+        }
+
     });
 
     // change element class when meter starts listening
@@ -66,8 +81,19 @@
     meterEl.addEventListener('click', function (e) {
         if (meter.listening)
             meter.stopListening();
-        else
+        else{
             meter.listen();
+            $('#start').fadeOut();
+            setTimeout(function(){
+                $('.rotulo').addClass('tossing');
+                $('.rotulo').addClass('active');
+                $('.maxruido').addClass('active');
+            }, 1000);
+
+            setTimeout(function(){
+                $('#db-level').fadeIn();
+            }, 2000);
+        }
     });
 
 

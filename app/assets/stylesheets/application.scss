@@ -23,6 +23,8 @@
 body {
   background-color: #222;
   font-size: 16dppx;
+    overflow: hidden;
+
 }
 
 #meter {
@@ -111,25 +113,88 @@ body {
   bottom: 0;
 }
 
-#db-level, .maxLevel{
+#db-level{
   position: absolute;
-  right: 10%;
-  font-size: 130px;
+  top: 9%;
+  right: 6%;
+  font-size: 100px;
+  z-index: 5;
   font-weight: bold;
   color: white;
   font-family: 'McLaren', cursive;
+  display: none;
+
+  .active{
+    
+  }
 }
 
-#db-level{
-  top: 10%;
+.maxruido{
+  background: image-url('aplausegundos.png');
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  top: -30%;
+
+  &.active{
+    top: 0;
+    transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
 }
 
-.maxLevel{
-  top: 30%;
-  color: red;
+.rotulo{
+  background: image-url('aplausometro_rotulo.png');
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  cursor: pointer;
+  top: -30%;
+  transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+
+  &.active{
+    top: -2%;
+  }
+}
+
+.confeti{
+  background: image-url('enhorabuena.png');
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  display: none;
+}
+
+.confetiContent{
+  position: absolute;
+  top: 43%;
+  left: 54%;
+  font-weight: bold;
+  font-size: 100px;
+  color: #00C8C8;
+  font-family: 'McLaren', cursive;
+}
+
+#start{
+  background: image-url('presstart.png');
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  cursor: pointer;
+}
+
+#meter{
+  display: none;
 }
 
 body{
-  background: image-url('segundo_plano.png');
+  background: image-url('fondo_aplausometro.png');
   background-size: cover;
 }
